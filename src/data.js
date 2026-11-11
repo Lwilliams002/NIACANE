@@ -126,7 +126,7 @@ export const locationsIntro = {
 }
 
 export const locations = [
-  { name: 'Houston', lines: ['9435 N Houston Rosslyn Rd', 'Houston, TX 77088, USA'], phone: '(713) 842-2614', tel: 'tel:+17138422614', map: 'https://maps.app.goo.gl/8cHNKtL5J4LVEwqD8', query: '9435 N Houston Rosslyn Rd, Houston, TX 77088' },
+  { name: 'Houston', lines: ['9435 N Houston Rosslyn Rd', 'Houston, TX 77088, USA'], phone: '(713) 449-5705', tel: 'tel:+17134495705', map: 'https://maps.app.goo.gl/8cHNKtL5J4LVEwqD8', query: '9435 N Houston Rosslyn Rd, Houston, TX 77088' },
   { name: 'Sugarland', lines: ['11750 S Texas 6', 'Sugar Land, TX 77498'], phone: '(713) 449-5705', tel: 'tel:+17134495705', map: 'https://maps.app.goo.gl/tbmZxFi1xeQoniUr5', query: '11750 S Texas 6, Sugar Land, TX 77498' },
 ]
 
