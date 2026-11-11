@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react'
-import {
+import { useEffect, useRef, useState } from 'react'
+import { FaChevronLeft, FaChevronRight,
   FaBars, FaBolt, FaCalendarAlt, FaChevronDown, FaChevronUp, FaCreditCard, FaFacebookF,
   FaHandHoldingMedical, FaInstagram, FaLeaf, FaMapMarkedAlt, FaMapMarkerAlt, FaPhone, FaPlay,
   FaSortDown, FaSortUp, FaStar, FaSun, FaTimes, FaDelicious,
@@ -106,19 +106,23 @@ function Benefits() {
 }
 
 function Favorites() {
+  // The list is rendered twice and the track glides left by exactly one copy,
+  // so the loop restarts without a visible jump (see .fav-track in styles.css).
   return (
     <section className="favorites">
       <div className="container center">
         <h2 className="title">Favorite Flavors</h2>
         <p className="lead">At Nia Cane, we believe variety is the spice of life. Here are our signature sugar cane infusions.</p>
       </div>
-      <div className="scroller" tabIndex={0} aria-label="Favorite flavors">
-        {d.favorites.map((f) => (
-          <figure className="flavor-card" key={f.title}>
-            <img src={media(f.image)} alt={`${f.title} sugarcane juice`} loading="lazy" />
-            <figcaption>{f.title}</figcaption>
-          </figure>
-        ))}
+      <div className="fav-marquee" aria-label="Favorite flavors">
+        <div className="fav-track">
+          {[...d.favorites, ...d.favorites].map((f, i) => (
+            <figure className="flavor-card" key={i} aria-hidden={i >= d.favorites.length}>
+              <img src={media(f.image)} alt={`${f.title} sugarcane juice`} />
+              <figcaption>{f.title}</figcaption>
+            </figure>
+          ))}
+        </div>
       </div>
     </section>
   )
@@ -184,27 +188,40 @@ function MenuItem({ item }) {
 }
 
 function Menu() {
-  const half = Math.ceil(d.flavors.length / 2)
+  const track = useRef(null)
+  const slide = (dir) => {
+    const el = track.current
+    const step = el.firstElementChild.getBoundingClientRect().width + 26
+    const per = Math.max(1, Math.floor(el.clientWidth / step))
+    el.scrollBy({ left: dir * step * per, behavior: 'smooth' })
+  }
   return (
     <section className="menu" id="menu">
-      <div className="menu-panel">
-        <div className="menu-head">
-          <h2 className="title">Discover Our 20 Signature Flavors</h2>
-          <img className="cups" src={media('niacane-cups-2.png')} alt="Small, medium and large cups" />
-          <div className="sizes">
-            {d.sizes.map((s) => (
-              <div key={s.name}>
-                <h3>{s.name}</h3>
-                <p>{s.price}</p>
-              </div>
-            ))}
-          </div>
-          <p className="size-note">Choose 2 flavors. Extra flavor +$1</p>
+      <div className="menu-head">
+        <h2 className="title">Discover Our 20 Signature Flavors</h2>
+        <img className="cups" src={media('niacane-cups-2.png')} alt="Small, medium and large cups" />
+        <div className="sizes">
+          {d.sizes.map((s) => (
+            <div key={s.name}>
+              <h3>{s.name}</h3>
+              <p>{s.price}</p>
+            </div>
+          ))}
         </div>
-        <div className="menu-cols">
-          <ul>{d.flavors.slice(0, half).map((f) => <MenuItem key={f.title} item={f} />)}</ul>
-          <ul>{d.flavors.slice(half).map((f) => <MenuItem key={f.title} item={f} />)}</ul>
-        </div>
+        <p className="size-note">Choose 2 flavors. Extra flavor +$1</p>
+      </div>
+      <div className="scroller menu-scroller" ref={track} tabIndex={0} aria-label="Signature flavors">
+        {d.flavors.map((f) => (
+          <article className="menu-card" key={f.title}>
+            <img src={media(f.image)} alt={`${f.title} sugarcane juice`} loading="lazy" />
+            <h4>{f.title}</h4>
+            <p>{f.text}</p>
+          </article>
+        ))}
+      </div>
+      <div className="slide-nav">
+        <button type="button" onClick={() => slide(-1)} aria-label="Previous flavors"><FaChevronLeft /></button>
+        <button type="button" onClick={() => slide(1)} aria-label="Next flavors"><FaChevronRight /></button>
       </div>
     </section>
   )
