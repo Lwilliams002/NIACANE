@@ -7,7 +7,7 @@ export const phone = { label: '(713) 449-5705', href: 'tel:+17134495705' }
 
 // URL of the mail function in /worker (sends the contact form through Resend).
 // Leave empty until the worker is deployed; the form then shows a call/email fallback.
-export const contactEndpoint = ''
+export const contactEndpoint = 'https://niacane-contact.niacane.workers.dev'
 
 export const nav = [
   { label: 'Home', href: '#top' },
