@@ -26,14 +26,15 @@ GitHub Pages only serves static files, so the form posts to a small Cloudflare W
 One-time setup:
 
 1. In Resend, verify the `niacane.com` domain (adds DNS records) and create an API key.
-2. Check `CONTACT_TO` and `CONTACT_FROM` in `worker/wrangler.toml`.
-3. Deploy the worker:
+2. Check `CONTACT_FROM` in `worker/wrangler.toml`.
+3. Deploy the worker. `CONTACT_TO` is the inbox that receives requests; it is a secret so the address stays out of this public repo:
 
    ```bash
    cd worker
    npx wrangler login
-   npx wrangler secret put RESEND_API_KEY
    npx wrangler deploy
+   npx wrangler secret put RESEND_API_KEY
+   npx wrangler secret put CONTACT_TO
    ```
 
 4. Copy the URL that `wrangler deploy` prints into `contactEndpoint` in `src/data.js`, commit and push.

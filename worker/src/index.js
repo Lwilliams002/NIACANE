@@ -4,7 +4,7 @@
 //
 // Settings (see wrangler.toml and README):
 //   RESEND_API_KEY   secret   Resend API key
-//   CONTACT_TO       var      inbox that receives the requests
+//   CONTACT_TO       secret   inbox that receives the requests
 //   CONTACT_FROM     var      sender on a domain verified in Resend
 //   ALLOWED_ORIGINS  var      comma-separated sites allowed to post here
 
