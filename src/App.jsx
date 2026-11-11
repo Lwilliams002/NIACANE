@@ -310,7 +310,7 @@ function Contact() {
       setStatus('error')
     }
   }
-  const fallback = `Please call ${d.phone.label} or write to ${d.footer.email}.`
+  const fallback = `Please call ${d.phone.label}.`
   return (
     <section className="contact" id="contact" style={{ backgroundImage: `url(${media('suagcane-bkg-flip-scaled.png')})` }}>
       <Divider shape="waves" color="#95B444" position="top" />
@@ -438,7 +438,6 @@ function Footer() {
           <ul className="plain">
             {hou.lines.map((l) => <li key={l}><a href={hou.map} target="_blank" rel="noopener noreferrer">{l}</a></li>)}
             <li><a href={hou.tel}>{hou.phone}</a></li>
-            <li><a href={`mailto:${f.email}`}>{f.email}</a></li>
           </ul>
         </div>
         <div>

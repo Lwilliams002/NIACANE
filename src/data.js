@@ -143,7 +143,6 @@ export const footer = {
   ],
   about: 'Nia Cane is dedicated to the people of Houston. We invite you to taste the difference that raw, natural pressing makes. Follow us on social media to find our mobile bar or visit us online to order your ',
   aboutBold: 'Sugar Cane Gallons',
-  email: 'info@niacane.com',
   social: {
     facebook: 'https://www.facebook.com/houstonchronicle/posts/nia-cane-is-a-new-food-truck-that-sells-freshly-juiced-sugarcane-juice-out-of-a-/899039152240224/',
     instagram: 'https://www.instagram.com/nia_cane/',
