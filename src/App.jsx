@@ -290,13 +290,27 @@ function Faq() {
 }
 
 function Contact() {
-  const [sent, setSent] = useState(false)
-  // Not connected to a mail service yet. Point this at Formspree / Web3Forms / etc.
-  // by adding an action URL and removing the preventDefault below.
-  const submit = (e) => {
+  // idle | sending | sent | error | offline (no mail function configured yet)
+  const [status, setStatus] = useState('idle')
+  const submit = async (e) => {
     e.preventDefault()
-    setSent(true)
+    const form = e.currentTarget
+    if (!d.contactEndpoint) return setStatus('offline')
+    setStatus('sending')
+    try {
+      const res = await fetch(d.contactEndpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(Object.fromEntries(new FormData(form))),
+      })
+      if (!res.ok) throw new Error(`HTTP ${res.status}`)
+      form.reset()
+      setStatus('sent')
+    } catch {
+      setStatus('error')
+    }
   }
+  const fallback = `Please call ${d.phone.label} or write to ${d.footer.email}.`
   return (
     <section className="contact" id="contact" style={{ backgroundImage: `url(${media('suagcane-bkg-flip-scaled.png')})` }}>
       <Divider shape="waves" color="#95B444" position="top" />
@@ -311,12 +325,16 @@ function Contact() {
           </div>
           <input name="your-phonenumber" type="tel" placeholder="Phone Number*" aria-label="Phone number" autoComplete="tel" required />
           <textarea name="your-message" placeholder="Your Message" aria-label="Your message" rows={5} />
-          <button type="submit" className="btn btn-green"><span>Send request</span></button>
-          {sent && (
-            <p className="form-note" role="status">
-              This form isn’t connected to email yet. Please call {d.phone.label} or write to {d.footer.email}.
-            </p>
-          )}
+          {/* Honeypot: hidden from people, filled in by spam bots. */}
+          <input className="hp" name="company" type="text" tabIndex={-1} autoComplete="off" aria-hidden="true" />
+          <button type="submit" className="btn btn-green" disabled={status === 'sending'}>
+            <span>{status === 'sending' ? 'Sending…' : 'Send request'}</span>
+          </button>
+          <p className="form-note" role="status">
+            {status === 'sent' && 'Thank you! Your request was sent. We’ll be in touch shortly.'}
+            {status === 'error' && `Sorry, your message couldn’t be sent. ${fallback}`}
+            {status === 'offline' && `This form isn’t connected to email yet. ${fallback}`}
+          </p>
         </form>
       </div>
     </section>
@@ -391,7 +409,7 @@ function Toggle({ title, children }) {
 
 function Footer() {
   const f = d.footer
-  const [hou, katy, sugar] = d.locations
+  const [hou, ...others] = d.locations
   return (
     <footer className="footer">
       <div className="container center">
@@ -424,7 +442,7 @@ function Footer() {
           </ul>
         </div>
         <div>
-          {[katy, sugar].map((x) => (
+          {others.map((x) => (
             <Toggle key={x.name} title={x.name}>
               <ul className="plain">
                 {x.lines.map((l) => <li key={l}><a href={x.map} target="_blank" rel="noopener noreferrer">{l}</a></li>)}

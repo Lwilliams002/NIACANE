@@ -19,6 +19,23 @@ All text, prices, flavors, FAQs and locations are in `src/data.js`. Images and t
 
 Pushing to `main` builds the site and publishes it to GitHub Pages through `.github/workflows/deploy.yml`.
 
-## Not done yet
+## Contact form (Resend)
 
-- The contact form does not send email. Connect it to a form service in `src/App.jsx` (`Contact` component).
+GitHub Pages only serves static files, so the form posts to a small Cloudflare Worker in `worker/` that holds the Resend API key and sends the email.
+
+One-time setup:
+
+1. In Resend, verify the `niacane.com` domain (adds DNS records) and create an API key.
+2. Check `CONTACT_TO` and `CONTACT_FROM` in `worker/wrangler.toml`.
+3. Deploy the worker:
+
+   ```bash
+   cd worker
+   npx wrangler login
+   npx wrangler secret put RESEND_API_KEY
+   npx wrangler deploy
+   ```
+
+4. Copy the URL that `wrangler deploy` prints into `contactEndpoint` in `src/data.js`, commit and push.
+
+Until step 4 is done the form shows a "call or email us" message instead of sending.

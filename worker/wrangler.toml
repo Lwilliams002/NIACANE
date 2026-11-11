@@ -1,0 +1,13 @@
+name = "niacane-contact"
+main = "src/index.js"
+compatibility_date = "2026-10-01"
+
+[vars]
+# Inbox that receives website requests (comma-separate for several).
+CONTACT_TO = "info@niacane.com"
+# Must be an address on a domain verified in Resend.
+CONTACT_FROM = "Nia Cane Website <website@niacane.com>"
+# Sites allowed to submit the form.
+ALLOWED_ORIGINS = "https://lwilliams002.github.io,https://niacane.com,https://www.niacane.com,http://localhost:5173"
+
+# The API key is a secret, set once with:  npx wrangler secret put RESEND_API_KEY

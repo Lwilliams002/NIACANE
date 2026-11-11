@@ -3,7 +3,11 @@
 
 export const media = (name) => `${import.meta.env.BASE_URL}media/${name}`
 
-export const phone = { label: '(713) 842-2614', href: 'tel:+17138422614' }
+export const phone = { label: '(713) 449-5705', href: 'tel:+17134495705' }
+
+// URL of the mail function in /worker (sends the contact form through Resend).
+// Leave empty until the worker is deployed; the form then shows a call/email fallback.
+export const contactEndpoint = ''
 
 export const nav = [
   { label: 'Home', href: '#top' },
@@ -117,13 +121,12 @@ export const contact = {
 export const locationsIntro = {
   heading: 'Serving the Houston Metropolitan Area & Surrounding Communities',
   subtitle: 'Visit Our Mobile Juice Bar at Houston Area Farmer’s Markets',
-  title: 'Find Nia Cane Sugarcane Juice Near Me in Houston, Sugar Land & Katy',
-  text: 'We are proud to be a staple in the Houston Metropolitan demographic, ensuring that fresh wellness is accessible to everyone. For those searching for "Sugarcane Juice near me," we have optimized our reach to serve key communities, including Sugar Land—a natural home for our brand—and the rapidly growing Katy area. Our presence at local events ensures that fresh-pressed juice is never out of reach. Experience the "press" in person. Our mobile juice bar frequently travels across the city attending events, allowing you to watch raw stalks be transformed into a refreshing beverage before your eyes.',
+  title: 'Find Nia Cane Sugarcane Juice Near Me in Houston & Sugar Land',
+  text: 'We are proud to be a staple in the Houston Metropolitan demographic, ensuring that fresh wellness is accessible to everyone. For those searching for "Sugarcane Juice near me," we have optimized our reach to serve key communities, including Sugar Land—a natural home for our brand. Our presence at local events ensures that fresh-pressed juice is never out of reach. Experience the "press" in person. Our mobile juice bar frequently travels across the city attending events, allowing you to watch raw stalks be transformed into a refreshing beverage before your eyes.',
 }
 
 export const locations = [
   { name: 'Houston', lines: ['9435 N Houston Rosslyn Rd', 'Houston, TX 77088, USA'], phone: '(713) 842-2614', tel: 'tel:+17138422614', map: 'https://maps.app.goo.gl/8cHNKtL5J4LVEwqD8', query: '9435 N Houston Rosslyn Rd, Houston, TX 77088' },
-  { name: 'Katy', lines: ['6120 N Fry Rd', 'Katy, TX 77449'], phone: '(713) 449-5705', tel: 'tel:+17134495705', map: 'https://maps.app.goo.gl/9YVE8X6vJ9toh7k79', query: '6120 N Fry Rd, Katy, TX 77449' },
   { name: 'Sugarland', lines: ['11750 S Texas 6', 'Sugar Land, TX 77498'], phone: '(713) 449-5705', tel: 'tel:+17134495705', map: 'https://maps.app.goo.gl/tbmZxFi1xeQoniUr5', query: '11750 S Texas 6, Sugar Land, TX 77498' },
 ]
 
@@ -133,7 +136,7 @@ export const footer = {
   heading: 'Locally Sourced Ingredients and Houston Small Business Roots',
   text: "By choosing Nia Cane, you are supporting a local economy. We take pride in our Houston heritage, ensuring our sourcing and production methods reflect our city's resilience and diversity. We believe in transparency, from the farm to the bottle.",
   features: [
-    { icon: 'map', title: 'Three Locations' },
+    { icon: 'map', title: 'Two Locations' },
     { icon: 'calendar', title: 'Event Booking' },
     { icon: 'card', title: 'Credit Cards Accepted' },
     { icon: 'phone', title: 'Customer Support' },

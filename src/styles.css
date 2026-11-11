@@ -174,7 +174,9 @@ section { position: relative; }
 .contact input, .contact textarea { width: 100%; font: inherit; padding: 14px 20px; border: 1px solid #959595; border-radius: 26px; background: #fff; color: #000; }
 .contact textarea { resize: vertical; }
 .contact form .btn { justify-self: center; }
-.form-note { font-size: 14px; color: var(--green); }
+.form-note { font-size: 14px; color: var(--green); min-height: 1.7em; }
+.contact .hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+.contact form .btn:disabled { opacity: 0.6; cursor: progress; }
 
 /* Locations */
 .locations { padding: 60px 40px 120px; background: #fff; }
